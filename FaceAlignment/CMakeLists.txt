@@ -16,6 +16,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4.1")
 
 include_directories(include)
+# ADD BY Liyao
+include_directories(${PROJECT_SOURCE_DIR}/../FaceDetection/include)
+# END OF ADD
 
 set(src_files 
     src/cfan.cpp
@@ -25,6 +28,9 @@ set(src_files
 
 add_library(seeta_fa_lib SHARED ${src_files})
 set(fa_required_libs seeta_fa_lib)
+# ADD BY Liyao
+link_directories(${PROJECT_SOURCE_DIR}/../FaceDetection/build)
+# END OF ADD
 
 if (BUILD_EXAMPLES)
     message(STATUS "Build with examples.")
