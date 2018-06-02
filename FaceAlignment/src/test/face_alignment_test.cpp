@@ -40,35 +40,56 @@
 #include "face_detection.h"
 #include "face_alignment.h"
 
-#ifdef _WIN32
+// DELETE BY Liyao
+/*#ifdef _WIN32
 std::string DATA_DIR = "../../data/";
 std::string MODEL_DIR = "../../model/";
 #else
 std::string DATA_DIR = "./data/";
 std::string MODEL_DIR = "./model/";
-#endif
+#endif*/
+// ENDOFDELETE
 
 int main(int argc, char** argv)
 {
   // Initialize face detection model
-  seeta::FaceDetection detector("../../../FaceDetection/model/seeta_fd_frontal_v1.0.bin");
+// CHANGE BY Liyao
+  //- seeta::FaceDetection detector("../../../FaceDetection/model/seeta_fd_frontal_v1.0.bin");
+  if (argc < 4) {
+      std::cout << "Usage: " << argv[0]
+          << " face_detection_model_path face_alignment_model_path image_path"
+          << std::endl;
+      return -1;
+  }
+  char *face_detection_model_path = argv[1];
+  char *face_alignment_model_path = argv[2];
+  char *image_path 	          = argv[3];
+  //seeta::FaceDetection detector(argv[1]);
+  seeta::FaceDetection detector(face_detection_model_path);
+  //std::cout << "FaceDetection detector initial success" << std::endl;
+  //MODEL_DIR = argv[2];
+  //DATA_DIR = argv[3];
+// END OF CHANGE
   detector.SetMinFaceSize(40);
   detector.SetScoreThresh(2.f);
   detector.SetImagePyramidScaleFactor(0.8f);
   detector.SetWindowStep(4, 4);
 
   // Initialize face alignment model 
-  seeta::FaceAlignment point_detector((MODEL_DIR + "seeta_fa_v1.1.bin").c_str());
+  //seeta::FaceAlignment point_detector((MODEL_DIR + "seeta_fa_v1.1.bin").c_str());
+  seeta::FaceAlignment point_detector(face_alignment_model_path);
 
   //load image
   IplImage *img_grayscale = NULL;
-  img_grayscale = cvLoadImage((DATA_DIR + "image_0001.png").c_str(), 0);
+  //img_grayscale = cvLoadImage((DATA_DIR + "image_0001.png").c_str(), 0);
+  img_grayscale = cvLoadImage(image_path);
   if (img_grayscale == NULL)
   {
     return 0;
   }
 
-  IplImage *img_color = cvLoadImage((DATA_DIR + "image_0001.png").c_str(), 1);
+  //IplImage *img_color = cvLoadImage((DATA_DIR + "image_0001.png").c_str(), 1);
+  IplImage *img_color = cvLoadImage(image_path, 1);
   int pts_num = 5;
   int im_width = img_grayscale->width;
   int im_height = img_grayscale->height;
