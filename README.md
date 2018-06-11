@@ -8,7 +8,7 @@ Only support building in Linux, I haven't tested it under Windows.
 
 The usages keep unchanged, just following the previous READMEs.
 
-Finally, thanks to SeetaFace Engine again! Since it's such a good start for face image processing beginners.
+Finally, thanks to SeetaFace Engine.
 
 ------
 
