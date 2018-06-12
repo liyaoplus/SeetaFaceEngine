@@ -1,4 +1,5 @@
 # SeetaFace Engine with CMakeLists.txt modified 
+*By Apr. 02, 2018*
 
 SeetaFace Engine is a good and practical set of face image processing tools. But I found that there were some errors in compiling and inconvenience in testing.
 
